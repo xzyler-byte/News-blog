@@ -34,6 +34,6 @@ public class NewsController {
 		User user = userService.findByUsername(principal.getName());
 		newsService.save(news);
 		newsService.createNews(news, user);
-		return "index";
+		return "redirect:index";
 	}
 }

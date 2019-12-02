@@ -1,5 +1,6 @@
 package com.nitesh.infodev.demo.newsblog.controller;
 
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
@@ -50,6 +51,22 @@ public class HomeController {
 
 	public String login(Model model) {
 		return "login";
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+
+	public String doLogin(Principal principal, @ModelAttribute("user") User user, Model model) {
+		User currentUser = userService.findByUsername(principal.getName());
+		if (currentUser == null) {
+			model.addAttribute("userNameNotFound", true);
+			return "login";
+		}
+		UserDetails userDetails = userSecurityService.loadUserByUsername(currentUser.getUsername());
+		Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(),
+				userDetails.getAuthorities());
+
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		return "redirect:index";
 	}
 
 	@RequestMapping("/register")
