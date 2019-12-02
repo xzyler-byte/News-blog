@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
+<head th:fragment="header">
+<title>Newsbit</title>
+
+
+<!-- Stylesheets -->
+
+<link th:href="@{plugin-frameworks/bootstrap.css}" rel="stylesheet" />
+
+<link th:href="@{fonts/ionicons.css}" rel="stylesheet" />
+
+
+<link th:href="@{common/styles.css}" rel="stylesheet" />
+
+
+</head>
+<body>
+	S
+
+	<header th:fragment="nav-bar">
+		<div class="bg-191">
+			<div class="container">
+				<div class="oflow-hidden color-ash font-9 text-sm-center ptb-sm-5">
+
+					<ul
+						class=" float-left
+					float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-10">
+						<li><a class="pl-0 pl-sm-10" th:href="@{/form/add/news}">Add
+								News</a></li>
+						<li><a class="pl-0 pl-sm-11" th:href="@{/register}">Sign
+								up</a></li>
+						<li><a class="pl-0 pl-sm-12" th:href="@{/login}">Sign in</a></li>
+					</ul>
+				</div>
+				<!-- top-menu -->
+			</div>
+			<!-- container -->
+		</div>
+		<!-- bg-191 -->
+
+		<div class="container">
+			<a class="logo" th:href="@{/}"><img src="images/logo-black.png"
+				alt="Logo"></a> <a class="right-area src-btn" href="#"> <i
+				class="active src-icn ion-search"></i> <i
+				class="close-icn ion-close"></i>
+			</a>
+		</div>
+	</header>
+	<!-- SCIPTS -->
+	<div th:fragment="js">
+		<script src="plugin-frameworks/jquery-3.2.1.min.js"></script>
+
+		<script src="plugin-frameworks/tether.min.js"></script>
+
+		<script src="plugin-frameworks/bootstrap.js"></script>
+
+		<script src="common/scripts.js"></script>
+	</div>
+</body>
+</html>
