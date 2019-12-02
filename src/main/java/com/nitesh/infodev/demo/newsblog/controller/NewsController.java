@@ -15,7 +15,7 @@ import com.nitesh.infodev.demo.newsblog.service.impl.NewsServiceImpl;
 import com.nitesh.infodev.demo.newsblog.service.impl.UserServiceImpl;
 
 @Controller
-
+@RequestMapping("/news")
 public class NewsController {
 
 	@Autowired
@@ -23,12 +23,12 @@ public class NewsController {
 	@Autowired
 	UserServiceImpl userService;
 
-	@RequestMapping("form/add/news")
+	@RequestMapping("/add")
 	public String showAddNewsForm() {
 		return "addNews";
 	}
 
-	@RequestMapping(value = "/add/news", method = RequestMethod.POST)
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addNews(Principal principal, @ModelAttribute("news") News news, Model model) throws Exception {
 		model.addAttribute("news", news);
 		User user = userService.findByUsername(principal.getName());
