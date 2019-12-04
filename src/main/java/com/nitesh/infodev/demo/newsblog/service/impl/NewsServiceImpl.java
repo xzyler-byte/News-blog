@@ -37,7 +37,6 @@ public class NewsServiceImpl implements NewsService {
 	@Override
 	public void createNews(News news, User user) throws Exception {
 		news.setUser(user);
-
 	}
 
 }

@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nitesh.infodev.demo.newsblog.model.security.Authority;
 import com.nitesh.infodev.demo.newsblog.model.security.UserRole;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "User")
 public class User implements UserDetails {

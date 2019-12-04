@@ -6,5 +6,5 @@ import com.nitesh.infodev.demo.newsblog.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	User findByUsername(String userName);
+	User findByUsername(String username);
 }

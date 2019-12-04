@@ -17,6 +17,4 @@ public interface UserService {
 	User save(User user);
 
 	List<User> getUsers();
-	
-
 }

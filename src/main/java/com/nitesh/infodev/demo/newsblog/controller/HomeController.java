@@ -1,8 +1,6 @@
 package com.nitesh.infodev.demo.newsblog.controller;
 
-import java.security.Principal;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +53,8 @@ public class HomeController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 
-	public String doLogin(Principal principal, @ModelAttribute("user") User user, Model model) {
-		User currentUser = userService.findByUsername(principal.getName());
+	public String doLogin(@ModelAttribute("user") User user, Model model) {
+		User currentUser = userService.findByUsername(user.getUsername());
 		if (currentUser == null) {
 			model.addAttribute("userNameNotFound", true);
 			return "login";
@@ -66,10 +64,11 @@ public class HomeController {
 				userDetails.getAuthorities());
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		return "redirect:index";
+		model.addAttribute("user", currentUser);
+		return "index";
 	}
 
-	@RequestMapping("/register")
+	@RequestMapping("/add/author")
 	public String register() {
 		return "signup";
 	}
@@ -86,30 +85,13 @@ public class HomeController {
 
 		String encryptedPassword = SecurityUtility.passwordEncoder().encode(password);
 		user.setPassword(encryptedPassword);
-
+		user.setActive(true);
 		Role role = new Role();
 		role.setRoleId(1);
 		role.setName("ROLE_ADMIN");
 		Set<UserRole> userRoles = new HashSet<>();
 		userRoles.add(new UserRole(user, role));
 		userService.createUser(user, userRoles);
-		return "index";
-	}
-
-	@RequestMapping("/add/author")
-	public String newUser(@RequestParam("username") String username, Locale locale, Model model) {
-
-		User user = userService.findByUsername(username);
-		UserDetails userDetails = userSecurityService.loadUserByUsername(username);
-
-		Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(),
-				userDetails.getAuthorities());
-
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-
-		model.addAttribute("user", user);
-
-		return "index";
-
+		return "redirect:/index";
 	}
 }

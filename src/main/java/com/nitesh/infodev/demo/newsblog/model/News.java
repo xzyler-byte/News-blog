@@ -20,7 +20,7 @@ public class News {
 	@Column(name = "descrpition")
 	private String descrpition;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@ManyToOne(cascade =  CascadeType.PERSIST)
 	@JoinColumn(name = "user_id")
 	private User user;
 
