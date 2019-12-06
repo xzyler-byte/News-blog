@@ -1,6 +1,7 @@
 package com.nitesh.infodev.demo.newsblog.controller;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,19 +11,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.nitesh.infodev.demo.newsblog.model.News;
 import com.nitesh.infodev.demo.newsblog.model.User;
 import com.nitesh.infodev.demo.newsblog.model.security.Role;
 import com.nitesh.infodev.demo.newsblog.model.security.UserRole;
+import com.nitesh.infodev.demo.newsblog.service.impl.NewsServiceImpl;
 import com.nitesh.infodev.demo.newsblog.service.impl.UserServiceImpl;
-import com.nitesh.infodev.demo.newsblog.utility.SecurityUtility;
 
 @Controller
 public class HomeController {
 	@Autowired
 	UserServiceImpl userService;
+	@Autowired
+	NewsServiceImpl newsService;
 
 	@GetMapping("/")
-	public String main() {
+	public String main(Model model) {
+		List<News> newses = newsService.getNews();
+		model.addAttribute("newses", newses);
 		return "index";
 	}
 

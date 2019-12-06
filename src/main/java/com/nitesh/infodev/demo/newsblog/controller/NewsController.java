@@ -38,6 +38,6 @@ public class NewsController {
 		model.addAttribute("news", news);
 		User user = userRepository.findByUsername(principal.getName());
 		newsService.createNews(news, user);
-		return "index";
+		return "redirect:/";
 	}
 }
