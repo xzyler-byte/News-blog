@@ -27,7 +27,7 @@ public class News {
 	private User user;
 
 	public News() {
-		super();
+		
 	}
 
 	public News(String headline, String discription) {
@@ -56,7 +56,7 @@ public class News {
 		return discription;
 	}
 
-	public void setDiscrpition(String discription) {
+	public void setDiscription(String discription) {
 		this.discription = discription;
 	}
 

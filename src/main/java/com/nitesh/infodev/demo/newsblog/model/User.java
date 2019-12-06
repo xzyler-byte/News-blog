@@ -1,16 +1,24 @@
 package com.nitesh.infodev.demo.newsblog.model;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nitesh.infodev.demo.newsblog.model.security.Authority;
+import com.nitesh.infodev.demo.newsblog.model.security.UserRole;
 
 @Entity
 @Table(name = "User")
@@ -21,14 +29,18 @@ public class User {
 	@Column(name = "id", nullable = false, updatable = false)
 	private long id;
 
-	@Column(name="username")
+	@Column(name = "username")
 	private String username;
 
-	@Column(name="password")
+	@Column(name = "password")
 	private String password;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
 	private Set<News> newses;
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnore
+	private Set<UserRole> userRoles = new HashSet<UserRole>();
 
 	public User() {
 	}
@@ -42,7 +54,6 @@ public class User {
 	public long getId() {
 		return id;
 	}
-
 
 	public String getUsername() {
 		return username;
@@ -66,5 +77,19 @@ public class User {
 
 	public void setNewses(Set<News> newses) {
 		this.newses = newses;
+	}
+
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+		userRoles.forEach(ur -> authorities.add(new Authority(ur.getRole().getName())));
+		return authorities;
+	}
+
+	public Set<UserRole> getUserRoles() {
+		return userRoles;
+	}
+
+	public void setUserRoles(Set<UserRole> userRoles) {
+		this.userRoles = userRoles;
 	}
 }

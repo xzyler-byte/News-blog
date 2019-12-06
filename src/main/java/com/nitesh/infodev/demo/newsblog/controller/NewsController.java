@@ -36,9 +36,7 @@ public class NewsController {
 	@PostMapping("/add")
 	public String addNews(Principal principal, @ModelAttribute("news") News news, Model model) throws Exception {
 		model.addAttribute("news", news);
-		System.out.println(news);
 		User user = userRepository.findByUsername(principal.getName());
-		newsService.save(news);
 		newsService.createNews(news, user);
 		return "index";
 	}
