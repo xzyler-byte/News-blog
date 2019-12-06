@@ -3,11 +3,12 @@
 <head></head>
 <body>
 	<div th:replace="fragments/header :: header">&nbsp;</div>
-
-
-
 	<section>
 		<main role="main" class="container">
+			<div class="form-group">
+				<span style="focolor: red; float: left; font-size: 20px;"
+					th:if="${param.logout}">Bad Credential.</span>
+			</div>
 			<div class="row">
 				<div class="col-md-12 col-lg-8">
 					<h4 class="p-title">

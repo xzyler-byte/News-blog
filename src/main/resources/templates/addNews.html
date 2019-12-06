@@ -7,15 +7,15 @@
 	<section>
 		<main role="main" class="container">
 			<div class="row" style="margin-bottom: -100px;"></div>
-			<form th:action="@{news/add}" method="post">
+			<form th:action="@{/news/add}" method="post">
 				<div class="form-group">
 					<label for="headline">Headline</label> <input name="headline"
-						type="text" class="form-control" id="exampleInputPassword1">
+						type="text" class="form-control"/>
 				</div>
 				<div class="form-group">
 					<label for="Discription">Discription</label> <input
 						name="discription" type="text" class="form-control"
-						id="Discription">
+						id="Discription"/>
 				</div>
 				<button type="submit" class="btn btn-primary">Submit</button>
 			</form>

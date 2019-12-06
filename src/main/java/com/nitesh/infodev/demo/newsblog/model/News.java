@@ -8,8 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "news")
 public class News {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,10 +19,10 @@ public class News {
 	private long id;
 	@Column(name = "headline")
 	private String headline;
-	@Column(name = "descrpition")
-	private String descrpition;
+	@Column(name = "discription")
+	private String discription;
 
-	@ManyToOne(cascade =  CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "user_id")
 	private User user;
 
@@ -28,11 +30,10 @@ public class News {
 		super();
 	}
 
-	public News(String headline, String descrpition, User user) {
+	public News(String headline, String discription) {
 		super();
 		this.headline = headline;
-		this.descrpition = descrpition;
-		this.user = user;
+		this.discription = discription;
 	}
 
 	public long getId() {
@@ -51,12 +52,12 @@ public class News {
 		this.headline = headline;
 	}
 
-	public String getDescrpition() {
-		return descrpition;
+	public String getDiscription() {
+		return discription;
 	}
 
-	public void setDescrpition(String descrpition) {
-		this.descrpition = descrpition;
+	public void setDiscrpition(String discription) {
+		this.discription = discription;
 	}
 
 	public User getUser() {
