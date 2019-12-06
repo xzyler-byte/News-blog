@@ -15,6 +15,7 @@ import com.nitesh.infodev.demo.newsblog.model.News;
 import com.nitesh.infodev.demo.newsblog.model.User;
 import com.nitesh.infodev.demo.newsblog.model.security.Role;
 import com.nitesh.infodev.demo.newsblog.model.security.UserRole;
+import com.nitesh.infodev.demo.newsblog.repository.UserRepository;
 import com.nitesh.infodev.demo.newsblog.service.impl.NewsServiceImpl;
 import com.nitesh.infodev.demo.newsblog.service.impl.UserServiceImpl;
 
@@ -24,6 +25,9 @@ public class HomeController {
 	UserServiceImpl userService;
 	@Autowired
 	NewsServiceImpl newsService;
+
+	@Autowired
+	UserRepository userRepo;
 
 	@GetMapping("/")
 	public String main(Model model) {

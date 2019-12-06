@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "news")
@@ -17,17 +20,22 @@ public class News {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false, updatable = false)
 	private long id;
+
 	@Column(name = "headline")
 	private String headline;
+
 	@Column(name = "discription")
 	private String discription;
+
+	@Transient
+	private MultipartFile newsImage;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "user_id")
 	private User user;
 
 	public News() {
-		
+
 	}
 
 	public News(String headline, String discription) {
@@ -38,10 +46,6 @@ public class News {
 
 	public long getId() {
 		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public String getHeadline() {
@@ -66,6 +70,20 @@ public class News {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public MultipartFile getNewsImage() {
+		return newsImage;
+	}
+
+	public void setNewsImage(MultipartFile newsImage) {
+		this.newsImage = newsImage;
+	}
+
+	@Override
+	public String toString() {
+		return "News [id=" + id + ", headline=" + headline + ", discription=" + discription + ", newsImage=" + newsImage
+				+ "]";
 	}
 
 }

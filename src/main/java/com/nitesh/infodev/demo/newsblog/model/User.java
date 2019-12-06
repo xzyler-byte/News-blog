@@ -35,8 +35,8 @@ public class User {
 	@Column(name = "password")
 	private String password;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
-	private Set<News> newses;
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<News> newses = new HashSet<News>();
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
@@ -92,4 +92,11 @@ public class User {
 	public void setUserRoles(Set<UserRole> userRoles) {
 		this.userRoles = userRoles;
 	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", newses=" + newses
+				+ ", userRoles=" + userRoles + "]";
+	}
+
 }

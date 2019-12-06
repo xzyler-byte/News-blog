@@ -14,13 +14,11 @@
 					<div class="row">
 						<div data-th-each="news : ${newses}">
 							<div class="col-sm-6">
-								<img src="images/recent-news-1-600x450.jpg" alt="">
+								<img th:src="@{/images/news/}+${news.id}+'.png'" class="img-responsive center-block" />
 								<h4 class="pt-20">
 									<a href="#"><b><span th:text="${news.headline}" /> <br />
 									</b></a>
 								</h4>
-
-
 								<p>
 									<span th:text="${news.discription}" />
 								</p>

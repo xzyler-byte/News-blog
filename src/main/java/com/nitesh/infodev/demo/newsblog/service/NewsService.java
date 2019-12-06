@@ -16,4 +16,5 @@ public interface NewsService {
 	List<News> getNews();
 
 	void createNews(News news, User user) throws Exception;
+	
 }
