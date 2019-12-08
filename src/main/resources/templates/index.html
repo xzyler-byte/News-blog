@@ -14,7 +14,8 @@
 					<div class="row">
 						<div data-th-each="news : ${newses}">
 							<div class="col-sm-6">
-								<img th:src="@{/images/news/}+${news.id}+'.png'" class="img-responsive center-block" />
+								<img th:src="@{/images/news/}+${news.id}+'.png'"
+									class="img-responsive center-block" />
 								<h4 class="pt-20">
 									<a href="#"><b><span th:text="${news.headline}" /> <br />
 									</b></a>
@@ -22,6 +23,64 @@
 								<p>
 									<span th:text="${news.discription}" />
 								</p>
+								<div class="Form">
+									<button type="button" class="btn btn-primary"
+										data-toggle="modal" data-target="#exampleModal"
+										data-whatever="@mdo">update</button>
+									<form th:action="@{/news/delete/}+${news.id}" method="post">
+										<input type="submit" class="btn btn-primary" value="Delete">
+									</form>
+								</div>
+
+
+								<div class="updateForm">
+									<form enctype="multipart/form-data"
+										th:action="@{/news/update/}+${news.id}" method="post">
+										<div class="modal fade" id="exampleModal" tabindex="-1"
+											role="dialog" aria-labelledby="exampleModalLabel"
+											aria-hidden="false">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">Update
+															News</h5>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<div class="form-group">
+															<label for="headline">Headline</label> <input
+																name="headline" type="text" th:value="${news.headline}"
+																class="form-control" />
+														</div>
+														<div class="form-group">
+															<label for="Discription">Discription</label>
+															<textarea name="discription" class="form-control"
+																id="Discription" th:text="${news.discription}"
+																th:textrows="6"></textarea>
+														</div>
+														<div class="form-group">
+															<div class="col-md-8">
+																<input id="newsImage" type="file" name="newsImage"
+																	th:value="${news.newsImage}" />
+															</div>
+														</div>
+
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">Close</button>
+														<input type="submit" class="btn btn-primary" value="Done" />
+
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+
+								</div>
 							</div>
 						</div>
 					</div>

@@ -1,5 +1,6 @@
 package com.nitesh.infodev.demo.newsblog.controller;
 
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,12 +11,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nitesh.infodev.demo.newsblog.model.News;
 import com.nitesh.infodev.demo.newsblog.model.User;
 import com.nitesh.infodev.demo.newsblog.model.security.Role;
 import com.nitesh.infodev.demo.newsblog.model.security.UserRole;
-import com.nitesh.infodev.demo.newsblog.repository.UserRepository;
 import com.nitesh.infodev.demo.newsblog.service.impl.NewsServiceImpl;
 import com.nitesh.infodev.demo.newsblog.service.impl.UserServiceImpl;
 
@@ -26,11 +27,8 @@ public class HomeController {
 	@Autowired
 	NewsServiceImpl newsService;
 
-	@Autowired
-	UserRepository userRepo;
-
 	@GetMapping("/")
-	public String main(Model model) {
+	public String main(Model model,Principal principal) {
 		List<News> newses = newsService.getNews();
 		model.addAttribute("newses", newses);
 		return "index";
@@ -47,7 +45,7 @@ public class HomeController {
 		return "signup";
 	}
 
-	@PostMapping(value = "user/add")
+	@PostMapping("user/add")
 	public String newUser(@ModelAttribute("user") User user, Model model) throws Exception {
 		model.addAttribute("user", user);
 		if (userService.findByUsername(user.getUsername()) != null) {
@@ -70,4 +68,5 @@ public class HomeController {
 		userService.save(user);
 		return "redirect:/login";
 	}
+	
 }

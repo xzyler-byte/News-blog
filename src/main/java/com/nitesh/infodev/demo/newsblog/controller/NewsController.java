@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,9 +51,10 @@ public class NewsController {
 			try {
 				byte[] bytes = newsImage.getBytes();
 				String name = news.getId() + ".png";
-
-				// Files.delete(Paths.get("src/main/resources/static/images/news/"+name));
-
+				/*
+				 * if ((Paths.get("src/main/resources/static/images/news/" + name)) != null) {
+				 * Files.delete(Paths.get("src/main/resources/static/images/news/" + name)); }
+				 */
 				BufferedOutputStream stream = new BufferedOutputStream(
 						new FileOutputStream(new File("src/main/resources/static/images/news/" + name)));
 				stream.write(bytes);
@@ -63,4 +65,39 @@ public class NewsController {
 		}
 		return "redirect:/";
 	}
+
+	@PostMapping("/update/{newsId}")
+	public String updateNews(@ModelAttribute("news") News news, @PathVariable("newsId") Long newsId) {
+		News currentNews = newsService.findById(newsId);
+		System.out.println(currentNews);
+		currentNews.setHeadline(news.getHeadline());
+		currentNews.setDiscription(news.getDiscription());
+		MultipartFile newsImage = news.getNewsImage();
+			try {
+				byte[] bytes = newsImage.getBytes();
+				String name = newsId + ".png";
+				
+				  
+				  Files.delete(Paths.get("src/main/resources/static/images/news/" + name)); 
+				 
+				BufferedOutputStream stream = new BufferedOutputStream(
+						new FileOutputStream(new File("src/main/resources/static/images/news/" + name)));
+				stream.write(bytes);
+				stream.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		newsService.save(currentNews);
+		return "redirect:/";
+		
+	}
+
+	@PostMapping("/delete/{newsId}")
+	public String deleteNews(@PathVariable("newsId") Long newsId) {
+		News currentNews = newsService.findById(newsId);
+		newsService.deleteNews(currentNews);
+		return "redirect:/";
+	}
+
 }

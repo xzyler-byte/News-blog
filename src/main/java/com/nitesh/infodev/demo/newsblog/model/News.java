@@ -24,7 +24,7 @@ public class News {
 	@Column(name = "headline")
 	private String headline;
 
-	@Column(name = "discription")
+	@Column(name = "discription",length = 10000,scale = 100000)
 	private String discription;
 
 	@Transient

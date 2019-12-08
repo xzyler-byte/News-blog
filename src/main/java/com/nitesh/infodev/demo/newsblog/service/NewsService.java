@@ -17,4 +17,5 @@ public interface NewsService {
 
 	void createNews(News news, User user) throws Exception;
 	
+	void deleteNews(News news);
 }
