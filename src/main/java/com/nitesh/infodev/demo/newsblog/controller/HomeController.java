@@ -5,33 +5,35 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nitesh.infodev.demo.newsblog.model.News;
 import com.nitesh.infodev.demo.newsblog.model.User;
 import com.nitesh.infodev.demo.newsblog.model.security.Role;
 import com.nitesh.infodev.demo.newsblog.model.security.UserRole;
-import com.nitesh.infodev.demo.newsblog.service.impl.NewsServiceImpl;
-import com.nitesh.infodev.demo.newsblog.service.impl.UserServiceImpl;
+import com.nitesh.infodev.demo.newsblog.service.NewsService;
+import com.nitesh.infodev.demo.newsblog.service.UserService;
 
 @Controller
 public class HomeController {
 	@Autowired
-	UserServiceImpl userService;
+	UserService userService;
 	@Autowired
-	NewsServiceImpl newsService;
+	NewsService newsService;
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
 	@GetMapping("/")
 	public String main(Model model, Principal principal) {
+
 		List<News> newses = newsService.getNews();
 		model.addAttribute("newses", newses);
 		return "index";
@@ -49,7 +51,10 @@ public class HomeController {
 	}
 
 	@PostMapping("user/add")
-	public String newUser(@ModelAttribute("user") User user, Model model) throws Exception {
+	public String newUser(@Valid User user, BindingResult result, Model model) throws Exception {
+		if (result.hasErrors()) {
+			return "signup";
+		}
 		model.addAttribute("user", user);
 		if (userService.findByUsername(user.getUsername()) != null) {
 			model.addAttribute("usernameExists", true);

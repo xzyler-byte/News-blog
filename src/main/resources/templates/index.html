@@ -1,5 +1,7 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head></head>
 <body>
 	<div th:replace="fragments/header :: header">&nbsp;</div>
@@ -19,11 +21,11 @@
 							<img th:src="@{/images/news/}+${news.id}+'.png'"
 								class="img-responsive center-block" />
 							<div class="Form" style="display: -webkit-inline-box;">
-								<button style="margin-right: 15px;" type="button"
+								<button sec:authorize="isAuthenticated()" style="margin-right: 15px;" type="button"
 									class="btn btn-primary" data-toggle="modal"
 									data-target="#exampleModal" data-whatever="@mdo">update</button>
 								<form th:action="@{/news/delete/}+${news.id}" method="post">
-									<input type="submit" class="btn btn-primary" value="Delete">
+									<input sec:authorize="isAuthenticated()" type="submit" class="btn btn-primary" value="Delete">
 								</form>
 							</div>
 

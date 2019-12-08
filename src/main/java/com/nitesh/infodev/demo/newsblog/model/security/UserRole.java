@@ -18,6 +18,7 @@ public class UserRole {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long uerRoleId;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User user;

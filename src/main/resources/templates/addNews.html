@@ -6,7 +6,7 @@
 	<div th:replace="fragments/header :: header">&nbsp;</div>
 	<section>
 		<main role="main" class="container">
-			<div class="row" style="margin-bottom: -100px;"></div>
+			<div class="row"></div>
 			<form enctype="multipart/form-data" th:action="@{/news/add}"
 				method="post" th:object="${news}">
 				<div class="form-group">
@@ -14,7 +14,7 @@
 						th:field="*{headline}" type="text" class="form-control" />
 				</div>
 				<div class="form-group">
-					<label for="Discription">Discription</label>
+					<label for="Discription">Description</label>
 					<textarea name="discription" class="form-control" id="Discription"
 						th:field="*{discription}" rows="6"></textarea>
 				</div>

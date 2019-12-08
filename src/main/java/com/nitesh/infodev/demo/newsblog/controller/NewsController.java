@@ -20,17 +20,17 @@ import org.springframework.web.multipart.MultipartFile;
 import com.nitesh.infodev.demo.newsblog.model.News;
 import com.nitesh.infodev.demo.newsblog.model.User;
 import com.nitesh.infodev.demo.newsblog.repository.UserRepository;
-import com.nitesh.infodev.demo.newsblog.service.impl.NewsServiceImpl;
-import com.nitesh.infodev.demo.newsblog.service.impl.UserServiceImpl;
+import com.nitesh.infodev.demo.newsblog.service.NewsService;
+import com.nitesh.infodev.demo.newsblog.service.UserService;
 
 @Controller
 @RequestMapping("/news")
 public class NewsController {
 
 	@Autowired
-	NewsServiceImpl newsService;
+	NewsService newsService;
 	@Autowired
-	UserServiceImpl userService;
+	UserService userService;
 	@Autowired
 	UserRepository userRepository;
 
