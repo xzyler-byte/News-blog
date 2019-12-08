@@ -25,14 +25,15 @@
 					<ul
 						class=" float-left
 					float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-10">
-						<li ><a sec:authorize="isAuthenticated()"
+						<li><a sec:authorize="isAuthenticated()"
 							class="pl-0 pl-sm-10" th:href="@{/news/add}">Add News</a></li>
 						<li><a class="pl-0 pl-sm-11" th:href="@{/user/add}">Sign
 								up</a></li>
 						<li><a class="pl-0 pl-sm-12" th:href="@{/login}">Sign in</a></li>
 						<li><form sec:authorize="isAuthenticated()"
 								th:action="@{/dologout}" method="post">
-								<input type="submit" class="pl-0 pl-sm-11" value="Logout" />
+								<input class="nav-link" type="submit" value="Logout"/>
+									<!-- style="background: transparent; border-color: transparent; color: wheat;" --> 
 							</form></li>
 					</ul>
 				</div>

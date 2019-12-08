@@ -51,10 +51,6 @@ public class NewsController {
 			try {
 				byte[] bytes = newsImage.getBytes();
 				String name = news.getId() + ".png";
-				/*
-				 * if ((Paths.get("src/main/resources/static/images/news/" + name)) != null) {
-				 * Files.delete(Paths.get("src/main/resources/static/images/news/" + name)); }
-				 */
 				BufferedOutputStream stream = new BufferedOutputStream(
 						new FileOutputStream(new File("src/main/resources/static/images/news/" + name)));
 				stream.write(bytes);
