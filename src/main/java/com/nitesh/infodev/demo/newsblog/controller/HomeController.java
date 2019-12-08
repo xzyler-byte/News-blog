@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +27,11 @@ public class HomeController {
 	UserServiceImpl userService;
 	@Autowired
 	NewsServiceImpl newsService;
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	@GetMapping("/")
-	public String main(Model model,Principal principal) {
+	public String main(Model model, Principal principal) {
 		List<News> newses = newsService.getNews();
 		model.addAttribute("newses", newses);
 		return "index";
@@ -59,6 +62,7 @@ public class HomeController {
 		 * SecurityUtility.passwordEncoder().encode(password);
 		 * user.setPassword(encryptedPassword);
 		 */
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		Role role = new Role();
 		role.setRoleId(1);
 		role.setName("ROLE_USER");
@@ -68,5 +72,5 @@ public class HomeController {
 		userService.save(user);
 		return "redirect:/login";
 	}
-	
+
 }

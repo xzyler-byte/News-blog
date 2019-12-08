@@ -8,13 +8,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.nitesh.infodev.demo.newsblog.utility.SecurityUtility;
-
-@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -26,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder1());
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
 
 	@Override
@@ -36,12 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll().logoutRequestMatcher(new AntPathRequestMatcher("/dologout", "POST")).logoutSuccessUrl("/");
 	}
 
-	@SuppressWarnings("unused")
-	private BCryptPasswordEncoder passwordEncoder() {
-		return SecurityUtility.passwordEncoder();
-	}
-
-	private PasswordEncoder passwordEncoder1() {
-		return NoOpPasswordEncoder.getInstance();
+	private PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder(12);
 	}
 }
