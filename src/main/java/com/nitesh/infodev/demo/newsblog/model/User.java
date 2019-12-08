@@ -29,7 +29,7 @@ public class User {
 	@Column(name = "id", nullable = false, updatable = false)
 	private long id;
 
-	@Column(name = "username")
+	@Column(name = "username", unique = true,columnDefinition = "VARCHAR(250) COLLATE latin1_general_cs")
 	private String username;
 
 	@Column(name = "password")
