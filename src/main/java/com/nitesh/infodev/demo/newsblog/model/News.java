@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,10 +23,14 @@ public class News {
 	@Column(name = "id", nullable = false, updatable = false)
 	private long id;
 
+	@NotNull
+	@Size(min = 10, max = 100)
 	@Column(name = "headline")
 	private String headline;
 
-	@Column(name = "discription",length = 10000,scale = 100000)
+	@NotNull
+	@Size(min=50, max=10000)
+	@Column(name = "discription", length = 10000, scale = 100000)
 	private String discription;
 
 	@Transient

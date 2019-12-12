@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.security.core.GrantedAuthority;
 
@@ -29,9 +31,13 @@ public class User {
 	@Column(name = "id", nullable = false, updatable = false)
 	private long id;
 
+	@NotNull
+	@Size(min=3, max=30)
 	@Column(name = "username", unique = true,columnDefinition = "VARCHAR(250) COLLATE latin1_general_cs")
 	private String username;
 
+	@NotNull
+	@Size(min=5, max=30)
 	@Column(name = "password")
 	private String password;
 

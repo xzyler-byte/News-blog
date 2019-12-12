@@ -11,12 +11,16 @@
 					<span style="color: red; float: left;" th:if="${usernameExists}">Username
 						already exists. Choose a different one.</span> <input name="username"
 						required="required" type="text" th:field="*{username}"
-						class="form-control" id="newusername" placeholder="Username" />
+						class="form-control" id="newusername" placeholder="Username" /> <span
+						th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username
+						Error.Username should be at least of 3 characters.</span>
 				</div>
 				<div class="form-group">
 					<input name="password" required="required" type="password"
 						th:field="*{password}" class="form-control" id="newpassword"
-						placeholder="Password" />
+						placeholder="Password" /> <span
+						th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password
+						Error.Password should be at least of 5 characters.</span>
 				</div>
 				<button type="submit" class="btn btn-primary">Submit</button>
 			</form>
