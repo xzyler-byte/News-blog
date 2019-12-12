@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.nitesh.infodev.demo.newsblog.model.News;
 import com.nitesh.infodev.demo.newsblog.model.User;
-import com.nitesh.infodev.demo.newsblog.repository.UserRepository;
 import com.nitesh.infodev.demo.newsblog.service.NewsService;
 import com.nitesh.infodev.demo.newsblog.service.UserService;
 
@@ -28,11 +28,13 @@ import com.nitesh.infodev.demo.newsblog.service.UserService;
 public class NewsController {
 
 	@Autowired
+	@Qualifier("newsServiceImpl")
 	NewsService newsService;
+	
 	@Autowired
+	@Qualifier("userServiceImpl")
 	UserService userService;
-	@Autowired
-	UserRepository userRepository;
+	
 
 	@GetMapping("/add")
 	public String showAddNewsForm(Model model) {
@@ -44,7 +46,7 @@ public class NewsController {
 	@PostMapping("/add")
 	public String addNews(Principal principal, @ModelAttribute("news") News news, Model model) throws Exception {
 		model.addAttribute("news", news);
-		User user = userRepository.findByUsername(principal.getName());
+		User user = userService.findByUsername(principal.getName());
 		newsService.createNews(news, user);
 		MultipartFile newsImage = news.getNewsImage();
 		if (!newsImage.isEmpty()) {
